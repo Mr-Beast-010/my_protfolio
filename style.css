@@ -431,6 +431,23 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(24px);
 }
+.resume-btn {
+  display: inline-block;
+  padding: 0.6rem 1.2rem;
+  background-color: var(--primary-color);
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 6px;
+  transition: 0.3s ease;
+  margin-top: 1rem;
+}
+
+.resume-btn:hover {
+  background-color: var(--secondary-color);
+  color:#000000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
 
 
 /* Responsive */
