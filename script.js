@@ -1,35 +1,21 @@
 const toggleSwitch = document.getElementById('themeToggle');
 
-// Apply saved theme on load
+// === Apply saved theme on load ===
 window.addEventListener('DOMContentLoaded', () => {
-  const dark = localStorage.getItem('theme') === 'dark';
-  document.body.classList.toggle('dark-mode', dark);
-  toggleSwitch.checked = dark;
+  const savedTheme = localStorage.getItem('theme');
+  const isDark = savedTheme === 'dark';
+  document.body.classList.toggle('dark-mode', isDark);
+  toggleSwitch.checked = isDark;
 });
 
+// === Toggle dark mode and save preference ===
 toggleSwitch.addEventListener('change', () => {
   const isDark = toggleSwitch.checked;
   document.body.classList.toggle('dark-mode', isDark);
   localStorage.setItem('theme', isDark ? 'dark' : 'light');
 });
 
-  // Optional: remember user's choice
-  if (document.body.classList.contains('dark-mode')) {
-    localStorage.setItem('theme', 'dark');
-  } else {
-    localStorage.setItem('theme', 'light');
-  }
-;
-
-// Optional: load saved theme
-window.addEventListener('DOMContentLoaded', () => {
-  if (localStorage.getItem('theme') === 'dark') {
-    document.body.classList.add('dark-mode');
-  }
-});
-
-
-// Scroll-aware active navbar highlighting
+// === Scroll-aware active navbar link ===
 const navLinks = document.querySelectorAll('.navbar-link');
 
 function setActiveLinkOnScroll() {
@@ -47,13 +33,10 @@ function setActiveLinkOnScroll() {
   });
 }
 
-// Run on scroll
 window.addEventListener('scroll', setActiveLinkOnScroll);
-
-// Also run on load (in case user starts mid-page)
 window.addEventListener('load', setActiveLinkOnScroll);
 
-// Optional: ensure smooth scroll and instant highlight on click
+// === Instant active change on click ===
 navLinks.forEach(link => {
   link.addEventListener('click', function () {
     navLinks.forEach(l => l.classList.remove('active'));
@@ -61,3 +44,24 @@ navLinks.forEach(link => {
   });
 });
 
+// === Quotes List ===
+const quotes = [
+  { text: "Push yourself, because no one else is going to do it for you.", tag: "#motivation" },
+  { text: "Don’t watch the clock; do what it does. Keep going.", tag: "#productivity" },
+  { text: "Success doesn’t come from what you do occasionally, it comes from what you do consistently.", tag: "#consistency" },
+  { text: "Believe you can and you're halfway there.", tag: "#belief" },
+  { text: "Your limitation—it's only your imagination.", tag: "#mindset" },
+];
+
+// === Display random quote ===
+function showRandomQuote() {
+  const random = quotes[Math.floor(Math.random() * quotes.length)];
+  document.getElementById("quote").textContent = `"${random.text}"`;
+  document.getElementById("tag").textContent = random.tag;
+}
+
+// === Start loop on load ===
+window.addEventListener('DOMContentLoaded', () => {
+  showRandomQuote();
+  setInterval(showRandomQuote, 5000); // refresh every 15 seconds
+});
